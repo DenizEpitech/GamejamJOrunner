@@ -64,8 +64,8 @@ void menu(window_t window)
 
 window_t start_runner(void)
 {
-    window_t window = {.window = creat_window(1920, 1080, "MY_JO_RUNNER", sfResize), .clock = sfClock_create()};
-    
+    window_t window = {.window = creat_window(1920, 1080, "MY_JO_RUNNER", sfResize), .clock = sfClock_create(), .bas = creat_sprite_with_texture("./bas.jpeg", 0, 700, 0.5)};
+
     window.time = sfClock_getElapsedTime(window.clock);
     menu(window);
     return window;

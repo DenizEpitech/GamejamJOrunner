@@ -50,10 +50,10 @@ static void obstacle_deplacement(window_t *window, sfSprite **obstacle)
 
 int main(void)
 {
+    window_t window = start_runner();
     sfSprite **obstacle = malloc(sizeof(sfSprite *) * 2);
     obstacle[0] = creat_sprite_with_texture("./obs.png", 2500, 650, 0.2);
     obstacle[1] = creat_sprite_with_texture("./obs.png", 3500, 650, 0.2);
-    window_t window = {.window = creat_window(1920, 1080, "MY_JO_RUNNER", sfResize), .clock = sfClock_create(), .bas = creat_sprite_with_texture("./bas.jpeg", 0, 700, 0.5)};
     perso_t perso = {.pesro = creat_sprite_with_texture("./src/perso/run1.png", 860, 600, 2), .perso_str = "./src/perso/run1.png", .clock_perso = sfClock_create(), .up = 0};
 
     window.time = sfClock_getElapsedTime(window.clock);
