@@ -39,7 +39,7 @@ static void obstacle_deplacement(window_t *window, sfSprite **obstacle)
     window->time = sfClock_getElapsedTime(window->clock);
     for (int i = 0; i < 2; i++)
         if (sfSprite_getPosition(obstacle[i]).x < -20)
-            sfSprite_setPosition(obstacle[i], (sfVector2f){(rand() % 1500) + 2000, sfSprite_getPosition(obstacle[i]).y});
+            sfSprite_setPosition(obstacle[i], (sfVector2f){(rand() % 500) + 2000, sfSprite_getPosition(obstacle[i]).y});
     if (sfTime_asSeconds(window->time) > 0.005){
         for (int i = 0; i < 2; i++)
             deplacement_sprite(obstacle[i], -4, 0);
@@ -77,8 +77,8 @@ int start(window_t window, int boo)
     while (sfRenderWindow_isOpen(window.window)) {
         while (sfRenderWindow_pollEvent(window.window, &window.event))
             close_window(window.window, window.event);
-        sfRenderWindow_drawSprite(window.window, image_fond, NULL);
-        sfRenderWindow_drawSprite(window.window, window.bas, NULL);//la c'est le 1er si non beug
+        sfRenderWindow_drawSprite(window.window, image_fond, NULL);//la c'est le 1er si non beug
+        sfRenderWindow_drawSprite(window.window, window.bas, NULL);//la c'est le 2eme si non beug
         deplacement_sprite(image_fond, -0.10, 0);
         obstacle_deplacement(&window, obstacle);
         moove_perso(&perso);
