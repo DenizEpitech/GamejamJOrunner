@@ -21,6 +21,9 @@ typedef struct window {
 typedef struct all {
     sfSprite *pesro;
     sfSprite *bas;
+    char perso_str[22];
+    sfClock *clock_perso;
+    sfTime time_perso;
 }all_t;
 
 typedef struct menu {
