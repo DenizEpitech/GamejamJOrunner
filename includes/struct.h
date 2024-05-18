@@ -16,15 +16,16 @@ typedef struct window {
     sfTime time;
     sfClock *clock;
     sfEvent event;
+    sfSprite *bas;
 }window_t;
 
-typedef struct all {
+typedef struct perso_s {
     sfSprite *pesro;
-    sfSprite *bas;
     char perso_str[22];
     sfClock *clock_perso;
     sfTime time_perso;
-}all_t;
+    int up;
+}perso_t;
 
 typedef struct menu {
     sfSprite *image_window;

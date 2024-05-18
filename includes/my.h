@@ -14,5 +14,6 @@
 
 #ifndef FUNC_H
     #define FUNC_H
+    #define ISPRESSED sfKeyboard_isKeyPressed
 
 #endif /*FUNC_H*/
