@@ -62,6 +62,16 @@ static int win_or_loose(perso_t perso, sfSprite **obstacle)
     return 0;
 }
 
+static void deplacement_back(window_t window)
+{
+    deplacement_sprite(window.bas_1, -0.10, 0);
+    deplacement_sprite(window.bas_2, -0.10, 0);
+    if (sfSprite_getPosition(window.bas_1).x < -1920)
+        sfSprite_setPosition(window.bas_1, (sfVector2f){1920, 700});
+    if (sfSprite_getPosition(window.bas_2).x < -1920)
+        sfSprite_setPosition(window.bas_2, (sfVector2f){1920, 700});
+}
+
 int start(window_t window, int boo)
 {
     if (boo)
@@ -78,7 +88,9 @@ int start(window_t window, int boo)
         while (sfRenderWindow_pollEvent(window.window, &window.event))
             close_window(window.window, window.event);
         sfRenderWindow_drawSprite(window.window, image_fond, NULL);//la c'est le 1er si non beug
-        sfRenderWindow_drawSprite(window.window, window.bas, NULL);//la c'est le 2eme si non beug
+        sfRenderWindow_drawSprite(window.window, window.bas_1, NULL);//la c'est le 2eme si non beug
+        sfRenderWindow_drawSprite(window.window, window.bas_2, NULL);//la c'est le 3eme si non beug
+        deplacement_back(window);
         deplacement_sprite(image_fond, -0.10, 0);
         obstacle_deplacement(&window, obstacle);
         moove_perso(&perso);
@@ -92,7 +104,8 @@ int start(window_t window, int boo)
 
 int main()
 {
-    window_t window = {.window = creat_window(1920, 1080, "MY_JO_RUNNER", sfResize), .clock = sfClock_create(), .bas = creat_sprite_with_texture("./bas.jpeg", 0, 700, 0.5)};
+    window_t window = {.window = creat_window(1920, 1080, "MY_JO_RUNNER", sfResize), .clock = sfClock_create(), .bas_1 = creat_sprite_with_texture("./bas.jpeg", 0, 700, 0.5), 
+    .bas_2 = creat_sprite_with_texture("./bas.jpeg", 1920, 700, 0.5)};
 
     window.time = sfClock_getElapsedTime(window.clock);
     start_runner(window);

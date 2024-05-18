@@ -16,7 +16,8 @@ typedef struct window {
     sfTime time;
     sfClock *clock;
     sfEvent event;
-    sfSprite *bas;
+    sfSprite *bas_1;
+    sfSprite *bas_2;
 }window_t;
 
 typedef struct perso_s {

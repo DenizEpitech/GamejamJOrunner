@@ -1,0 +1,4 @@
+my_runner
+coding-style-reports.log
+*.o
+*.a
