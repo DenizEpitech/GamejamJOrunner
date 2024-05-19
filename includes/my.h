@@ -17,5 +17,6 @@
     #define ISPRESSED sfKeyboard_isKeyPressed
 
 void start_runner(window_t window);
+void win(window_t window);
 
 #endif /*FUNC_H*/

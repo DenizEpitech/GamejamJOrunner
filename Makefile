@@ -7,6 +7,7 @@
 
 SRC	=			src/main.c		\
 				src/menu/menu.c	\
+				src/win.c 		\
 
 CC	?=	gcc
 

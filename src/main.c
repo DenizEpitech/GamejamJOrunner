@@ -49,7 +49,7 @@ static void obstacle_deplacement(window_t *window, sfSprite **obstacle)
         sfRenderWindow_drawSprite(window->window, obstacle[i], NULL);
 }
 
-static int win_or_loose(perso_t perso, sfSprite **obstacle)
+static int win_or_loose(perso_t perso, sfSprite **obstacle, sfSprite *paris)
 {
     sfVector2f pos_perso = sfSprite_getPosition(perso.pesro);//180 size 
     sfVector2f pos_1 = sfSprite_getPosition(obstacle[0]);//204.8 size
@@ -59,6 +59,8 @@ static int win_or_loose(perso_t perso, sfSprite **obstacle)
         return 1;
     if ((pos_perso.x + 100 > pos_2.x + 20 && pos_perso.y + 100 > pos_2.y) && (pos_perso.x < pos_2.x + 200 && pos_perso.y + 150 < pos_2.y + 200))
         return 1;
+    if (sfSprite_getPosition(paris).x < -3840)
+        return 2;
     return 0;
 }
 
@@ -66,13 +68,13 @@ static void deplacement_back(window_t window)
 {
     deplacement_sprite(window.bas_1, -0.10, 0);
     deplacement_sprite(window.bas_2, -0.10, 0);
-    if (sfSprite_getPosition(window.bas_1).x < -1920)
-        sfSprite_setPosition(window.bas_1, (sfVector2f){1920, 700});
-    if (sfSprite_getPosition(window.bas_2).x < -1920)
-        sfSprite_setPosition(window.bas_2, (sfVector2f){1920, 700});
+    if (sfSprite_getPosition(window.bas_1).x < -2150)
+        sfSprite_setPosition(window.bas_1, (sfVector2f){2150, 700});
+    if (sfSprite_getPosition(window.bas_2).x < -2150)
+        sfSprite_setPosition(window.bas_2, (sfVector2f){2150, 700});
 }
 
-int start(window_t window, int boo)
+static void start(window_t window, int boo)
 {
     if (boo)
         start_runner(window);
@@ -99,16 +101,18 @@ int start(window_t window, int boo)
         moove_perso(&perso);
         sfRenderWindow_drawSprite(window.window, perso.pesro, NULL);
         sfRenderWindow_display(window.window);
-        sfRenderWindow_clear(window.window, sfWhite);
-        if (win_or_loose(perso, obstacle))
+        sfRenderWindow_clear(window.window, sfBlue);
+        if (win_or_loose(perso, obstacle, image_fond_2) == 1)
             start(window, 1);
+        if (win_or_loose(perso, obstacle, image_fond_2) == 2)
+            return win(window);
     }
 }
 
 int main()
 {
     window_t window = {.window = creat_window(1920, 1080, "MY_JO_RUNNER", sfResize), .clock = sfClock_create(), .bas_1 = creat_sprite_with_texture("./bas.jpeg", 0, 700, 0.5), 
-    .bas_2 = creat_sprite_with_texture("./bas2.jpeg", 1920, 700, 0.5)};
+    .bas_2 = creat_sprite_with_texture("./bas2.jpeg", 2150, 700, 0.5)};
 
     window.time = sfClock_getElapsedTime(window.clock);
     start_runner(window);
