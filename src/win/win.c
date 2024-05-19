@@ -32,8 +32,8 @@ void win_screen(window_t window)
     sfSprite *win_image = creat_sprite_with_texture("src/win/victory.png", 0, 0, 1);
     sfSprite **buttons = malloc(sizeof(sfSprite *) * 2);
 
-    buttons[0] = creat_sprite_with_texture("src/win/home.png", 700, 450, 1);
-    buttons[1] = creat_sprite_with_texture("src/win/exit.png", 700, 600, 1);
+    buttons[0] = creat_sprite_with_texture("src/win/home.png", 700, 500, 1);
+    buttons[1] = creat_sprite_with_texture("src/win/exit.png", 700, 750, 1);
     while (sfRenderWindow_isOpen(window.window)) {
         while (sfRenderWindow_pollEvent(window.window, &window.event))
             close_window(window.window, window.event);
