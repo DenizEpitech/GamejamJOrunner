@@ -59,7 +59,7 @@ static int win_or_loose(perso_t perso, sfSprite **obstacle, sfSprite *paris)
         return 1;
     if ((pos_perso.x + 100 > pos_2.x + 20 && pos_perso.y + 100 > pos_2.y) && (pos_perso.x < pos_2.x + 200 && pos_perso.y + 150 < pos_2.y + 200))
         return 1;
-    if (sfSprite_getPosition(paris).x < -3840)
+    if (sfSprite_getPosition(paris).x < 0)
         return 2;
     return 0;
 }
