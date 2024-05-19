@@ -78,6 +78,7 @@ int start(window_t window, int boo)
         start_runner(window);
     sfSprite **obstacle = malloc(sizeof(sfSprite *) * 2);
     sfSprite *image_fond = creat_sprite_with_texture("marseille.png", 0, 0, 0.92);
+    sfSprite *image_fond_2 = creat_sprite_with_texture("paris.png", 3700, 0, 0.92);
     obstacle[0] = creat_sprite_with_texture("./obs.png", 2500, 650, 0.2);
     obstacle[1] = creat_sprite_with_texture("./obs.png", 3500, 650, 0.2);
     perso_t perso = {.pesro = creat_sprite_with_texture("./src/perso/run1.png", 860, 600, 2), .perso_str = "./src/perso/run1.png", .clock_perso = sfClock_create(), .up = 0};
@@ -87,11 +88,13 @@ int start(window_t window, int boo)
     while (sfRenderWindow_isOpen(window.window)) {
         while (sfRenderWindow_pollEvent(window.window, &window.event))
             close_window(window.window, window.event);
-        sfRenderWindow_drawSprite(window.window, image_fond, NULL);//la c'est le 1er si non beug
+        sfRenderWindow_drawSprite(window.window, image_fond, NULL);  //la c'est le 1er si non beug
+        sfRenderWindow_drawSprite(window.window, image_fond_2, NULL);  //la c'est le 1er si non beug
         sfRenderWindow_drawSprite(window.window, window.bas_1, NULL);//la c'est le 2eme si non beug
         sfRenderWindow_drawSprite(window.window, window.bas_2, NULL);//la c'est le 3eme si non beug
-        deplacement_back(window);
+        deplacement_back(window);                                    //deplacement du sol
         deplacement_sprite(image_fond, -0.10, 0);
+        deplacement_sprite(image_fond_2, -0.10, 0);                    //deplacement de l'mage du fond les ville  
         obstacle_deplacement(&window, obstacle);
         moove_perso(&perso);
         sfRenderWindow_drawSprite(window.window, perso.pesro, NULL);
@@ -105,7 +108,7 @@ int start(window_t window, int boo)
 int main()
 {
     window_t window = {.window = creat_window(1920, 1080, "MY_JO_RUNNER", sfResize), .clock = sfClock_create(), .bas_1 = creat_sprite_with_texture("./bas.jpeg", 0, 700, 0.5), 
-    .bas_2 = creat_sprite_with_texture("./bas.jpeg", 1920, 700, 0.5)};
+    .bas_2 = creat_sprite_with_texture("./bas2.jpeg", 1920, 700, 0.5)};
 
     window.time = sfClock_getElapsedTime(window.clock);
     start_runner(window);
