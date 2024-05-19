@@ -7,10 +7,14 @@
 
 #include "../includes/my.h"
 
-static int condition_up(perso_t perso)
+static int condition_up(perso_t perso, window_t window)
 {
     sfVector2f pos = sfSprite_getPosition(perso.pesro);
 
+    if (ISPRESSED(sfKeyUp)){
+        sfRenderWindow_drawText(window.window, creat_text("You are cheating !!!\n", (sfVector2i){100, 100}, 50, sfWhite), NULL);
+        return -1;
+    }
     if (ISPRESSED(sfKeySpace) && perso.up == 0)
         return -1;
     if (pos.y < 450 && perso.up == -1)
@@ -20,10 +24,10 @@ static int condition_up(perso_t perso)
     return perso.up;
 }
 
-static void moove_perso(perso_t *perso)
+static void moove_perso(perso_t *perso, window_t window)
 {
     perso->time_perso = sfClock_getElapsedTime(perso->clock_perso);
-    perso->up = condition_up(*perso);
+    perso->up = condition_up(*perso, window);
     if (sfTime_asSeconds(perso->time_perso) > 0.085){
         if (perso->perso_str[15] == '9')
             perso->perso_str[15] = '2';
@@ -59,7 +63,7 @@ static int win_or_loose(perso_t perso, sfSprite **obstacle, sfSprite *paris)
         return 1;
     if ((pos_perso.x + 100 > pos_2.x + 20 && pos_perso.y + 100 > pos_2.y) && (pos_perso.x < pos_2.x + 200 && pos_perso.y + 150 < pos_2.y + 200))
         return 1;
-    if (sfSprite_getPosition(paris).x < -3840)
+    if (sfSprite_getPosition(paris).x < -2500)
         return 2;
     return 0;
 }
@@ -98,10 +102,10 @@ static void start(window_t window, int boo)
         deplacement_sprite(image_fond, -0.10, 0);
         deplacement_sprite(image_fond_2, -0.10, 0);                    //deplacement de l'mage du fond les ville  
         obstacle_deplacement(&window, obstacle);
-        moove_perso(&perso);
+        moove_perso(&perso, window);
         sfRenderWindow_drawSprite(window.window, perso.pesro, NULL);
         sfRenderWindow_display(window.window);
-        sfRenderWindow_clear(window.window, sfBlue);
+        sfRenderWindow_clear(window.window, sfWhite);
         if (win_or_loose(perso, obstacle, image_fond_2) == 1)
             start(window, 1);
         if (win_or_loose(perso, obstacle, image_fond_2) == 2)
